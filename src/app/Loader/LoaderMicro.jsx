@@ -50,7 +50,7 @@ export default function LoaderMicro() {
   }, []);
 
   return (
-    <div className="h-screen fixed bg-white top-0 left-0 z-[999] loaderDiv w-full">
+    <div className="h-screen fixed bg-black top-0 left-0 z-[999] loaderDiv w-full">
       <div className="flex items-center  gap-3 flex-col justify-center h-full w-full">
         {/* Logo / Wordmark Container */}
         <div className="h-auto w-[30%]  p-[2px] rounded-[1vw] bg-gradient-to-r from-[#FF6B6B] via-[#4ECDC4] via-[#45B7D1] via-[#96CEB4] to-[#FFEEAD]">
