@@ -17,7 +17,7 @@ export default function page() {
   return (
     <>
         <Background />
-        {/* <WhiteBackground /> */}
+        <WhiteBackground />
 
     </>
   );
