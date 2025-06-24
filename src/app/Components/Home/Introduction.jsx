@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import gsap from "gsap";
 
 export default function Introduction() {
   const navItems = [
@@ -26,6 +27,8 @@ export default function Introduction() {
         </svg>
       ),
       text: "Home",
+      position: "0vw",
+      video: "https://www.micro.so/videos/optimized/home-high-265.mp4"
     },
     {
       icon: (
@@ -50,6 +53,8 @@ export default function Introduction() {
         </svg>
       ),
       text: "Messages",
+      position: "8vw",
+      video: "https://www.micro.so/videos/optimized/messages-high-265.mp4"
     },
     {
       icon: (
@@ -87,6 +92,8 @@ export default function Introduction() {
         </svg>
       ),
       text: "Projects",
+      position: "16vw",
+      video: "https://www.micro.so/videos/optimized/projects-high-265.mp4"
     },
     {
       icon: (
@@ -111,6 +118,8 @@ export default function Introduction() {
         </svg>
       ),
       text: "CRM",
+      position: "24vw",
+      video: "https://www.micro.so/videos/optimized/crm-high-265.mp4"
     },
     {
       icon: (
@@ -153,13 +162,23 @@ export default function Introduction() {
         </svg>
       ),
       text: "MicroAI",
+      position: "32vw",
+      video: "https://www.micro.so/videos/optimized/ai-high-265.mp4"
     },
   ];
 
   const [active, setActive] = useState(navItems[0]);
 
+  useEffect(() => {
+    gsap.to(".absolute-btn", {
+      x: active.position,
+      duration: 0.5,
+      ease: "power2.inOut",
+    });
+  }, [active]);
+
   return (
-    <div className="h-fit w-full flex  py-[2vw]  flex-col items-center justify-center">
+    <div className="h-fit w-full flex py-[2vw] flex-col items-center justify-center">
       <div className="w-full h-full flex flex-col items-center justify-center">
         <h2 className="text-[5.3vw] font-haffer leading-[1.3] tracking-tight">
           Introducing Micro
@@ -167,40 +186,25 @@ export default function Introduction() {
         <p className="font-tobias text-[1.8vw]">
           The all-in-one tool that organizes itself
         </p>
-        <div className="w-fit  mt-[4vw] rounded-full bg-[#191A20]/50 backdrop-blur-md h-fit flex items-center justify-center">
-          {navItems.map((item, index) => {
-            const isActive = active.text === item.text;
-            return (
-              <div
-                key={index}
-                className={`flex items-center px-[1vw] py-[.6vw] justify-center gap-[.5vw] cursor-pointer transition-colors duration-200 
-                  ${
-                  isActive
-                    ? "text-white p-[.6vw] px-[1vw] bg-black  rounded-full"
-                    : "text-[#6D767E]"
-                }
-                `}
-                onClick={() => setActive(item)}
-              >
-                <div className="flex items-center gap-[.5vw]">
-                  <div className="w-[1vw] h-auto">{item.icon}</div>
-                  <p
-                    className={`text-[.8vw] text-center ${
-                      isActive ? "text-white text-center" : "text-[#6D767E]"
-                    }`}
-                  >
-                    {item.text}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+        <div className="w-fit mt-[4vw] rounded-full bg-zinc-500/10 backdrop-blur-md h-[6vh] px-[.2vw] flex items-center relative justify-center">
+          <div className="w-[8vw] h-[90%] -translate-y-1/2  absolute absolute-btn top-1/2 left-[calc(.2vw+0vw)] rounded-full z-[-1] bg-black "></div>
+          {navItems.map((item, index) => (
+            <div
+              onClick={() => setActive(item)}
+
+              className="w-[8vw] flex z-[5] items-center gap-[.5vw] justify-center h-full"
+              key={index}
+            >
+              <div className={`w-[1vw] h-auto  ${active.text === item.text ? "text-white" : "text-zinc-500"}`}>{item.icon}</div>
+              <p className={`text-[.8vw] cursor-pointer  text-center ${active.text === item.text ? "text-white" : "text-zinc-500"}`}>{item.text}</p>
+            </div>
+          ))}
         </div>
         <div className="w-full mt-[2vw] h-full flex flex-col items-center justify-center">
-          <div className="w-[75%] p-[.5vw] h-[85vh] rounded-xl bg-white/50 backdrop-blur-xl">
+          <div className="w-[75%] p-[.5vw] h-auto rounded-xl bg-white/50 backdrop-blur-xl">
             <div className="bg-white w-full h-full aspect-video rounded-xl overflow-hidden">
               <video
-                src="https://www.micro.so/videos/optimized/messages-high-265.mp4"
+                src={active.video}
                 autoPlay
                 loop
                 muted

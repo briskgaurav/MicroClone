@@ -16,7 +16,7 @@ export default function Customization() {
       scrollTrigger: {
         trigger: ".customization",
         start: "top 50%",
-        end: "10% top",
+        end: "50% top",
         // markers: true,
         scrub: true,
       },
@@ -36,7 +36,31 @@ export default function Customization() {
       }
     );
 
-    tl.fromTo(
+    gsap.set(".perspective-rotation", {
+      rotateX: "-90deg",
+      scale: 0.5,
+      opacity: 0,
+      transformOrigin: "top",
+      transformStyle: "preserve-3d",
+    });
+    gsap.to(".perspective-rotation", {
+      rotateX: "0deg",
+      scale: 1,
+      opacity: 1,
+      transformOrigin: "top",
+      transformStyle: "preserve-3d",
+      duration: 1.5,
+      ease: "power1.inOut",
+      delay:1,
+      scrollTrigger: {
+        trigger: ".perspective-rotation",
+        start: "top 50%",
+        once: false,
+        end: "50% top",
+        // markers: true,
+      },
+    });
+    gsap.fromTo(
       textSplit.chars,
       {
         opacity: 0,
@@ -51,26 +75,20 @@ export default function Customization() {
           amount: 0.5,
           from: "start",
         },
+        scrollTrigger: {
+          trigger: ".perspective-rotation",
+          start: "top 50%",
+          once: false,
+          end: "50% top",
+          // markers: true,
+        },
         ease: "back.out",
-      }
-    );
-    tl.fromTo(
-      ".perspective-rotation",
-      {
-        rotateX: "-90deg",
-        scale: 0.5,
-        opacity: 0,
-        transformOrigin: "top",
-        transformStyle: "preserve-3d",
-      },
-      {
-        rotateX: "0deg",
-        scale: 1,
-        opacity: 1,
-        transformOrigin: "top",
-        transformStyle: "preserve-3d",
-        duration: 2,
-        ease: "power1.inOut",
+        onComplete: () => {
+          gsap.set(".line-capsule", {
+            opacity:0,
+            visibility: "hidden",
+          });
+        },
       }
     );
   }, []);
@@ -86,7 +104,7 @@ export default function Customization() {
           experience you can imagine or use Micro AI to generate it from your
           description.
         </p>
-        <div className="w-full capsule-hide h-[10vh] border border-white flex items-center justify-between rounded-full p-2">
+        <div className="w-full line-capsule capsule-hide h-[10vh] border border-white flex items-center justify-between rounded-full p-2">
           <div className="w-[4vw] h-[4vw] ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -178,7 +196,7 @@ export default function Customization() {
           </p>
         </div>
       </div>
-      <div style={{ perspective: "2000px" }} className="w-full">
+      <div style={{ perspective: "2000px" }} className="w-full -mt-[5vw]">
         <div className="w-full rounded-[1vw] perspective-rotation mt-[2vw] h-[100vh] overflow-hidden relative">
           <Image
             src="/images/UI2.webp"

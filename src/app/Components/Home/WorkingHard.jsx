@@ -1,6 +1,9 @@
 import { animateFloatingBlobs } from "@/app/Animation/FloatBlobAnimation";
 import React, { useEffect } from "react";
 import { gsap } from "gsap";
+import { SplitText } from "gsap/dist/SplitText";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 export default function WorkingHard() {
   const orbs = [
@@ -11,29 +14,49 @@ export default function WorkingHard() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       animateFloatingBlobs(orbs.map((_, i) => `orb-${i}`));
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".workHard",
+          start: "top top",
+          end: "80% top",
+        }
+      })
+
+      const splitText = new SplitText(".lines", {
+        type: "words,chars",
+        linesClass: "lines",
+        mask: "lines,chars,words",
+      })
+      tl.fromTo(splitText.words, {
+        opacity: 0,
+      }, {
+        opacity: 1,
+        stagger: 0.03,
+      })
     });
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div className="h-fit overflow-hidden relative ">
+    <section className="h-fit workHard overflow-hidden relative ">
       
-      <section className="h-screen py-[5vw]  w-full flex items-center justify-center flex-col gap-[1vw] relative">
+      <div className="h-screen py-[5vw]  w-full flex items-center justify-center flex-col gap-[1vw] relative">
         <div className="w-full h-screen flex flex-col items-start pl-[26vw] gap-[1.5vw]">
-          <h2 className="heading tracking-tight">Working hard just got easy</h2>
+          <h2 className="heading tracking-tight">Working hard just got easier</h2>
           <p className="text-[2.4vw] w-[52%] font-medium leading-[1.2] font-tobias tracking-tight">
-            The era of Brute Force Productivity™ is over and a new one has
+            The era of manual productivity is over and a new one has
             begun.
           </p>
-          <p className="w-[36%] text-[1vw]">
-            Where everything is centralized - one place to catch up on all your
-            messages, check in on a project or prep for a meeting with a
-            customer or investor.
+          <p className="w-[50%] lines text-[1.1vw]">
+            Everything is centralized - one place to catch up on all your 
+            <span className="text-teal-500"> messages</span>, track your <span className="text-teal-500">projects</span>, and prepare for meetings with
+            customers and investors.
           </p>
-          <p className="w-[36%] text-[1vw]">
-            Where your work is done for you - CRM records are updated, emails
-            are triaged and documents are drafted automatically.
+          <p className="w-[45%] lines text-[1.1vw] -mt-[1vw]  ">
+            Your work is automated - <span className="text-teal-500">CRM</span> records update automatically, <span className="text-teal-500">emails </span>
+            are intelligently sorted, and <span className="text-teal-500">documents</span> are drafted for you.
           </p>
         </div>
 
@@ -181,7 +204,7 @@ export default function WorkingHard() {
             </svg>
           </div>
         ))}
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

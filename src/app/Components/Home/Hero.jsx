@@ -21,7 +21,7 @@ const orbs2 = [
 
 export default function Hero() {
   const refHero = useRef(null);
-  const TOTAL_DOTS = 3000;
+  const TOTAL_DOTS = 5000;
   const TOTAL_LINES = 20;
   const rainRefs = useRef([]);
   const imageRefs = useRef([]);
@@ -35,8 +35,8 @@ export default function Hero() {
 
   const handleImageMove = (e) => {
     const { clientX, clientY } = e;
-    const moveX = (clientX - window.innerWidth / 2) / 50;
-    const moveY = (clientY - window.innerHeight / 2) / 50;
+    const moveX = (clientX - window.innerWidth / 2) / 30;
+    const moveY = (clientY - window.innerHeight / 2) / 30;
 
     imageRefs.current.forEach((ref) => {
       if (ref) {
@@ -53,6 +53,7 @@ export default function Hero() {
       if (ref) {
         gsap.to(ref, {
           x: moveX * 1.2,
+          y: moveY * 1.2,
           duration: 1,
           ease: "power2.out",
         });
@@ -119,8 +120,42 @@ export default function Hero() {
   }, []);
 
   return (
-    <div ref={refHero} className="min-h-screen h-fit w-full">
+    <div ref={refHero} className="min-h-screen  relative h-fit w-full">
       {/* Masked Images */}
+      <div className="h-full flex px-[5vw] py-[4vw] hero-div translate-y-[100%] !z-[999] absolute bottom-0  left-0 w-full">
+        <div className="flex w-full h-full flex-col items-start justify-end gap-[2vw]">
+          <p className="text-[.9vw] w-[40%]  leading-none tracking-tighter">
+            Micro is an all-in-one tool for email, CRM, project management and
+            more that automatically organizes itself.
+          </p>
+          <div className="flex items-center group bg-[#F9F5EE] rounded-full justify-center cursor-pointer py-[1vw] px-[2vw] z-[999] gap-[.3vw] w-fit">
+            <p className="text-black text-[.9vw]">Join the waitlist</p>
+            <div className="w-[.6vw] mb-[.5vw] group-hover:opacity-100 transition-all duration-300 opacity-0 h-[.8vw]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#000000"
+                viewBox="0 0 9 9"
+                className="w-full h-full object-contain"
+              >
+                <path
+                  fill="#000000"
+                  fillRule="evenodd"
+                  d="M5.82904 2.10986H1.63971V0.609863H8.38971V7.35986H6.88971V3.17052L2.17004 7.89019L1.10938 6.82953L5.82904 2.10986Z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className="flex w-full h-full flex-col items-end justify-end">
+          <h1 className="text-[8.5vw]  leading-none tracking-tighter">
+            Organized.
+          </h1>
+          <p className="text-[2vw] font-tobias  leading-none tracking-tighter">
+            So you don't have to be.
+          </p>
+        </div>
+      </div>
       <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
         <div
           id="secondImageMask"
@@ -139,8 +174,7 @@ export default function Hero() {
           }}
         >
           <div className="h-fit  relative ">
-            <div className="  h-fit absolute top-0 left-0 w-full z-[-1]">
-              {/* Dotted Grid */}
+            <div className="  h-fit absolute top-0 left-0 w-full z-[-54]">
               <div className=" grid grid-cols-[repeat(auto-fill,minmax(0.5rem,1fr))] gap-4 p-4 bg-[#0F1013]">
                 {Array.from({ length: TOTAL_DOTS }).map((_, i) => (
                   <div key={i} className="w-full h-full relative">
@@ -328,17 +362,19 @@ export default function Hero() {
         </div>
       </div>
       <div className="h-full blackDiv relative w-full flex items-end justify-end p-[2vw]">
-        <div className=" w-[calc(100%-0vw)]  h-[calc(100%-3vw)] relative bg-black overflow-hidden rounded-[2vw] flex items-center justify-center">
+        <div className=" w-[calc(100%-0vw)]  hero-div translate-y-[100%] opacity-0 h-[calc(100%-3vw)] relative bg-black overflow-hidden rounded-[2vw] flex items-center justify-center">
           {/* first Image Layer */}
           <div className="w-full layer1 opacity-100 rounded-[2vw] overflow-hidden h-full relative">
-            <Image
-              ref={(el) => (imageRefs.current[0] = el)}
-              src="/images/homeTop.webp"
-              alt="hero"
-              fill
-              className="w-full scale-110 h-full object-cover"
-            />
-            <div className="w-full  h-[80%] absolute bottom-[6%] scale-130 left-0">
+            <div className=" scale-120 translate-y-[-11%] h-full w-full absolute inset-0">
+              <Image
+                ref={(el) => (imageRefs.current[0] = el)}
+                src="/images/homeTop.webp"
+                alt="hero"
+                fill
+                className="w-full  h-full object-cover"
+              />
+            </div>
+            <div className="w-full  h-full absolute bottom-[0%] translate-y-[15%] scale-110  left-0">
               <Image
                 ref={(el) => (imageRefsBottom.current[0] = el)}
                 src="/images/homeBottom.webp"
@@ -353,60 +389,66 @@ export default function Hero() {
           <div className="w-full z-[2] absolute flex gap-2 p-2 top-0 left-0 h-full ">
             <div
               id="firstImage"
-              className="w-full h-full  relative overflow-hidden  border-[1px] border-white/50 flex items-center justify-center rounded-[1.5vw] "
+              className="w-full h-full  relative overflow-hidden  border-[1px] border-white/50 flex items-center  bg-red-500/50 justify-center rounded-[1.5vw] "
             >
-              <Image
-                ref={(el) => (imageRefs.current[1] = el)}
-                src="/images/homeTop.webp"
-                alt="hero"
-                fill
-                className="w-[100vw-0vw] scale-130 absolute inset-0 h-[calc(100vh-3vw)] object-cover object-left"
-              />
-              <div className="w-full h-[80%] absolute bottom-0 scale-130 left-0">
+              <div className="scale-120 translate-y-[-11%] h-full w-full absolute inset-0">
+                <Image
+                  ref={(el) => (imageRefs.current[1] = el)}
+                  src="/images/homeTop.webp"
+                  alt="hero"
+                  fill
+                  className="w-full h-full object-cover object-left"
+                />
+              </div>
+              <div className="w-[calc(100vw-3vw)] h-full translate-x-[-1.5%] translate-y-[15%] scale-110  absolute bottom-0  left-0">
                 <Image
                   ref={(el) => (imageRefsBottom.current[1] = el)}
                   src="/images/homeBottom.webp"
                   alt="hero"
                   fill
-                  className="w-full scale-100 object-cover object-left h-full  "
+                  className="w-full  object-cover object-left  h-full  "
                 />
               </div>
             </div>
-            {/* Middle Image */}
+
             <div
               id="secondImage"
               className="w-full h-full relative border-[1px] overflow-hidden border-white/50 flex items-center justify-center rounded-[1.5vw] "
             >
-              <Image
-                ref={(el) => (imageRefs.current[2] = el)}
-                src="/images/homeTop.webp"
-                alt="hero"
-                fill
-                className="w-[100vw-0vw] scale-130 absolute inset-0 h-[calc(100vh-3vw)] object-cover "
-              />
-              <div className="w-full h-[80%] absolute bottom-[-3%] scale-130 left-0">
+              <div className="scale-120 translate-y-[-11%] h-full w-full absolute inset-0">
+                <Image
+                  ref={(el) => (imageRefs.current[2] = el)}
+                  src="/images/homeTop.webp"
+                  alt="hero"
+                  fill
+                  className="w-full h-full object-cover "
+                />
+              </div>
+              <div className="w-[calc(100vw-3vw)] h-full translate-x-[-34%] translate-y-[15.5%] scale-110  absolute bottom-0  left-0">
                 <Image
                   ref={(el) => (imageRefsBottom.current[2] = el)}
                   src="/images/homeBottom.webp"
                   alt="hero"
                   fill
-                  className="w-full scale-100 object-cover object-center h-full  "
+                  className="w-full  object-cover h-full object-center "
                 />
               </div>
             </div>
 
             <div
               id="thirdImage"
-              className="w-full h-full relative overflow-hidden border-[1px] border-white/50 flex items-center justify-center rounded-[1.5vw]"
+              className="w-full h-full relative overflow-hidden border-[1px] border-white/50 flex items-center  justify-center rounded-[1.5vw]"
             >
-              <Image
-                ref={(el) => (imageRefs.current[3] = el)}
-                src="/images/homeTop.webp"
-                alt="hero"
-                fill
-                className="w-[100vw-0vw] absolute scale-130 inset-0 h-[calc(100vh-3vw)] object-cover object-right"
-              />
-              <div className="w-full h-[80%] absolute bottom-[0%] scale-130 left-0">
+              <div className="scale-120 translate-y-[-11%] h-full w-full absolute inset-0">
+                <Image
+                  ref={(el) => (imageRefs.current[3] = el)}
+                  src="/images/homeTop.webp"
+                  alt="hero"
+                  fill
+                  className="w-full h-full object-cover object-right"
+                />
+              </div>
+              <div className="w-[calc(100vw-3vw)] h-full translate-x-[-66%] translate-y-[15.5%] scale-110  absolute bottom-0  left-0">
                 <Image
                   ref={(el) => (imageRefsBottom.current[3] = el)}
                   src="/images/homeBottom.webp"
@@ -578,27 +620,9 @@ export default function Hero() {
               ))}
             </div>
           </div>
-          <div className="h-full flex z-[5]  absolute bottom-0 p-[2vw] left-0 w-full">
-            <div className="flex w-full h-full flex-col items-start justify-end gap-[2vw]">
-              <p className="text-[.9vw] w-[40%]  leading-none tracking-tighter">
-                Micro is an all-in-one tool for email, CRM, project management
-                and more that automatically organizes itself.
-              </p>
-              <div className="flex items-center bg-[#F9F5EE] rounded-full justify-center py-[1vw] px-[2vw] w-fit">
-                <p className="text-black text-[.9vw]">Join the waitlist</p>
-              </div>
-            </div>
-            <div className="flex w-full h-full flex-col items-end justify-end">
-              <h1 className="text-[8.5vw]  leading-none tracking-tighter">
-                Organized.
-              </h1>
-              <p className="text-[2vw] font-tobias  leading-none tracking-tighter">
-                So you don't have to be.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
+     
     </div>
   );
 }

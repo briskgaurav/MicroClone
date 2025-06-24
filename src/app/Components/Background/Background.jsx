@@ -26,7 +26,7 @@ export default function Background() {
     });
   }, []);
 
-  const TOTAL_DOTS = 28000; // Adjust based on performance and screen size
+  const TOTAL_DOTS = 30000; // Adjust based on performance and screen size
   const TOTAL_LINES = 50;
 
   return (

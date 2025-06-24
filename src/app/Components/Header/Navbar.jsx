@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../Buttons/Button";
 import { gsap } from "gsap";
+import Link from "next/link";
 
 
 export default function Navbar() {
@@ -33,7 +34,7 @@ export default function Navbar() {
 
   return (
     <nav ref={navRef} className="py-[1.5vw] fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[2vw]">
-      <div className="w-[5.6vw] h-auto">
+      <div className="w-[5.6vw] cursor-pointer   h-auto">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -67,7 +68,7 @@ export default function Navbar() {
         </svg>
       </div>
       <div className="flex items-center gap-[1.5vw]">
-        <p className="text-[.9vw]">Login</p>
+        <Link href="/login" className="text-[.9vw]">Login</Link>
         <Button />
       </div>
     </nav>

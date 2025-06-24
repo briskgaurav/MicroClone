@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import gsap from "gsap";
 
 export default function LoaderMicro() {
+
+  const TOTAL_DOTS = 30000; // Adjust based on performance and screen size
+  const TOTAL_LINES = 50;
   useEffect(() => {
     const paths = document.querySelectorAll(".loaderPath");
     const percentageText = document.querySelector(".loader-percentage");
@@ -36,23 +39,39 @@ export default function LoaderMicro() {
       },
       onComplete: () => {
         gsap.to(".loaderDiv", {
-          y: "-100%",
+          opacity: 0,
           duration: 1.2,
           ease: "power1.inOut",
           onComplete: () => {
             gsap.to(".loaderDiv", {
               visibility: "hidden",
             });
+            gsap.to(".hero-div", {
+              y: "0%",
+              opacity: 1,
+              duration: 1,
+              ease: "power4.inOut",
+            });
           },
         });
       },
     });
+
   }, []);
 
   return (
     <div className="h-screen fixed bg-black top-0 left-0 z-[999] loaderDiv w-full">
+
+      <div className="absolute top-0 left-0 w-full z-[-1]">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(0.5rem,1fr))] gap-4 p-4 bg-[#0F1013]">
+          {Array.from({ length: TOTAL_DOTS }).map((_, i) => (
+            <div key={i} className="w-full h-full relative">
+              <div className="w-[0.15vw] h-[0.15vw] rounded-full bg-foreground/20"></div>
+            </div>
+          ))}
+        </div>
+      </div>
       <div className="flex items-center  gap-3 flex-col justify-center h-full w-full">
-        {/* Logo / Wordmark Container */}
         <div className="h-auto w-[30%]  p-[2px] rounded-[1vw] bg-gradient-to-r from-[#FF6B6B] via-[#4ECDC4] via-[#45B7D1] via-[#96CEB4] to-[#FFEEAD]">
           <div className="bg-black overflow-hidden h-full p-[1vw] rounded-[1vw] w-full">
             <svg

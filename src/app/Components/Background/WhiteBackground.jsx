@@ -2,6 +2,7 @@ import React from "react";
 import Features from "../Home/Features";
 import Productivity from "../Home/Productivity";
 import Footer from "../Footer/Footer";
+import SvgBackground from "./SvgBackground";
 
 export default function WhiteBackground() {
   return (
@@ -16,7 +17,6 @@ export default function WhiteBackground() {
       </div>
         <Features />
         <Productivity />
-
         <Footer />
     </div>
   );

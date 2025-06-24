@@ -1,8 +1,9 @@
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import SvgBackground from "../Background/SvgBackground";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,6 +18,8 @@ const imageMap = {
 };
 
 export default function Work() {
+
+  const [ToggleSvg,setToggleSvg] = useState(false)
   const data = [
     "AI Powered",
     "All-In-One Tool",
@@ -72,26 +75,26 @@ export default function Work() {
       ".bg-layer",
       {
         y: "-20%",
-       
+
         ease: "linear",
       },
       "<"
     );
-    tl.to('.bg-layer',{
-      opacity:0,
-      duration:1,
-      ease:'linear',
-    })
+    tl.to(".bg-layer", {
+      opacity: 0,
+      duration: 1,
+      ease: "linear",
+    });
     const images = gsap.utils.toArray(".image-work");
 
     const imageAnimations = [
-      { index: 5, left: "-110%", top: "-103%" },
+      { index: 5, left: "-103%", top: "-101%" },
       { index: 1, left: "2%", top: "215%" },
-      { index: 4, left: "-213%", top: "1%" },
-      { index: 6, left: "215%", top: "-106%" },
-      { index: 0, left: "-108%", top: "319%" },
-      { index: 2, left: "213%", top: "216%" },
-      { index: 3, left: "-105%", top: "2%" },
+      { index: 4, left: "-211%", top: "4%" },
+      { index: 6, left: "208%", top: "-101%" },
+      { index: 0, left: "-107%", top: "322%" },
+      { index: 2, left: "208%", top: "216%" },
+      { index: 3, left: "-105%", top: "4%" },
     ];
 
     imageAnimations.forEach(({ index, left, top }) => {
@@ -146,17 +149,19 @@ export default function Work() {
       opacity: 0,
       duration: 1,
       ease: "power2.inOut",
+      onComplete:()=>{
+        setToggleSvg(true)
+      },
+      onReverseComplete:()=>{
+        setToggleSvg(false)
+      }
     });
 
-    tl.to(
-      ".text-wrapper",
-      {
-        opacity: 0,
-        duration: 1,
-        ease: "power2.inOut",
-      },
-      
-    );
+    tl.to(".text-wrapper", {
+      opacity: 0,
+      duration: 1,
+      ease: "power2.inOut",
+    });
 
     tl.fromTo(
       ".text-wrapper2",
@@ -172,6 +177,8 @@ export default function Work() {
         duration: 1,
         x: "0%",
         ease: "power2.inOut",
+       
+       
       }
     );
     tl.to(
@@ -187,7 +194,7 @@ export default function Work() {
     );
     tl.to([images[0], images[3]], {
       y: "100%",
-      opacity: 0, 
+      opacity: 0,
       duration: 1,
       ease: "power2.inOut",
     });
@@ -198,10 +205,11 @@ export default function Work() {
         y: "-300%",
         duration: 1,
         ease: "power2.inOut",
+       
       },
       "<"
     );
-    
+
     tl.to(
       ".image-wrapper",
       {
@@ -221,18 +229,26 @@ export default function Work() {
         x: "30%",
         y: "-360%",
         ease: "power2.inOut",
+        
       },
       {
         opacity: 1,
         duration: 1,
         x: "0%",
         ease: "power2.inOut",
-      },'<'
+        onComplete:()=>{
+          setToggleSvg(false)
+        },
+        onReverseComplete:()=>{
+          setToggleSvg(true)
+        },
+      },
+      "<"
     );
   }, []);
 
   return (
-    <div className="h-fit work-container w-full py-[5vw] flex flex-col items-center justify-center">
+    <div className="h-fit work-container w-full py-[5vw] flex flex-col items-center justify-center relative">
       <div className="flex flex-col z-10  gap-[2vw] py-[5vw] h-[50vh] items-center justify-between w-[70%] px-[2vw]">
         <div className="flex w-[95%] items-center justify-between ">
           {data.map((item, index) => (
@@ -252,7 +268,7 @@ export default function Work() {
       </div>
 
       <div className="h-[50vh] w-full relative">
-        <div className="w-full image-mountain -z-1 h-auto absolute top-[-60%] left-0">
+        <div className="w-full  image-mountain -z-1 h-auto absolute top-[-60%] left-0">
           <Image
             className="w-full h-full  object-cover"
             src="/images/mountains.webp"
@@ -263,6 +279,7 @@ export default function Work() {
         </div>
         <div className="perspective-[500px] h-[100vh] w-full flex items-center justify-center absolute top-[-50%] left-0">
           <div className="w-[52%] perspective-plane h-full rounded-xl relative ">
+
             {/* 🔵 Background Grid Layer (with border and background) */}
             <div className="absolute inset-0 z-0 rounded-xl bg-[#0F1013] bg-layer pointer-events-none grid grid-cols-5 grid-rows-5 p-2 gap-2">
               {[...Array(25)].map((_, index) => (
@@ -292,12 +309,15 @@ export default function Work() {
                   )}
                 </div>
               ))}
+            
             </div>
           </div>
         </div>
 
+    
+
         {/* CircularSvg */}
-        <div className="absolute  left-[50%] top-[50%] -translate-x-1/2 -translate-y-[80%]">
+        <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-[80%]">
           <div className="w-[20vw] svg-card h-auto">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -468,7 +488,9 @@ export default function Work() {
             your description.
           </p>
         </div>
+
       </div>
+      <SvgBackground toggle={ToggleSvg} />
     </div>
   );
 }
