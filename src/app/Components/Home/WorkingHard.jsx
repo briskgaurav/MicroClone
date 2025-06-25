@@ -3,12 +3,14 @@ import React, { useEffect } from "react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/dist/SplitText";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import UseMobile from "../Hooks/UseMobile";
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 export default function WorkingHard() {
+  const { isMobile } = UseMobile();
   const orbs = [
-    { size: "12vw", position: "top-[10%] left-[0%]" },
-    { size: "15vw", position: "top-[20%] left-[85%]" },
+    { size: isMobile ? "35vw" : "12vw", position: "top-[10%] left-[0%]" },
+    { size: isMobile ? "40vw" : "15vw", position: "top-[20%] left-[85%]" },
   ];
 
   useEffect(() => {
@@ -42,19 +44,19 @@ export default function WorkingHard() {
   return (
     <section className="h-fit workHard overflow-hidden relative ">
       
-      <div className="h-screen py-[5vw]  w-full flex items-center justify-center flex-col gap-[1vw] relative">
-        <div className="w-full h-screen flex flex-col items-start pl-[26vw] gap-[1.5vw]">
-          <h2 className="heading tracking-tight">Working hard just got easier</h2>
-          <p className="text-[2.4vw] w-[52%] font-medium leading-[1.2] font-tobias tracking-tight">
+      <div className="h-screen py-[5vw] max-sm:py-[10vw] w-full flex items-center justify-center flex-col gap-[1vw] relative">
+        <div className="w-full h-screen flex flex-col items-start max-sm:justify-center pl-[26vw] max-sm:pl-[5vw] max-sm:gap-[6vw] gap-[1.5vw]">
+          <h2 className="lg:heading max-sm:text-[14vw] max-sm:leading-[1.1] tracking-tight">Working hard just got easy</h2>
+          <p className="text-[2.4vw] w-[52%] font-medium leading-[1.2] font-tobias tracking-tight max-sm:text-[8vw] max-sm:w-[90%]">
             The era of manual productivity is over and a new one has
             begun.
           </p>
-          <p className="w-[50%] lines text-[1.1vw]">
+          <p className="w-[50%] lines text-[1.1vw] max-sm:text-[5vw] max-sm:w-[90%]">
             Everything is centralized - one place to catch up on all your 
             <span className="text-teal-500"> messages</span>, track your <span className="text-teal-500">projects</span>, and prepare for meetings with
             customers and investors.
           </p>
-          <p className="w-[45%] lines text-[1.1vw] -mt-[1vw]  ">
+          <p className="w-[45%] max-sm:text-[5vw] max-sm:w-[90%] lines text-[1.1vw] -mt-[1vw] max-sm:mt-[-2vw] ">
             Your work is automated - <span className="text-teal-500">CRM</span> records update automatically, <span className="text-teal-500">emails </span>
             are intelligently sorted, and <span className="text-teal-500">documents</span> are drafted for you.
           </p>

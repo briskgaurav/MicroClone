@@ -4,18 +4,16 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import WhiteBackground from "../Background/WhiteBackground";
 import { animateFloatingBlobs } from "@/app/Animation/FloatBlobAnimation";
-import UseMobile from "../Hooks/UseMobile";
 
 gsap.registerPlugin(ScrollTrigger);
 
 
-export default function BuiltDifferent() {
-  const { isMobile } = UseMobile();
+export default function BuiltDifferentMobile() {
   const orbs = [
-    { size: isMobile ? "35vw" : "10vw", position: "top-[25%] left-[50%]" },
-    { size: isMobile ? "25vw" : "12vw", position: "top-[50%] left-[38%]" },
-    { size: isMobile ? "40vw" : "13vw", position: "top-[70%] left-[80%]" },
-    { size: isMobile ? "10vw" : "9vw", position: "top-[70%] left-[10%]" },
+    { size: "35vw", position: "top-[25%] left-[50%]" },
+    { size: "25vw", position: "top-[50%] left-[38%]" },
+    { size: "40vw", position: "top-[70%] left-[80%]" },
+    { size: "10vw", position: "top-[70%] left-[10%]" },
   ];
   useEffect(() => {
     const context = gsap.context(() => {
@@ -29,7 +27,6 @@ export default function BuiltDifferent() {
           pin: true,
         },
       });
-      // Marquee animation
       gsap.to(".marquee", {
         x: "-82%",
         duration: 10,
@@ -37,7 +34,6 @@ export default function BuiltDifferent() {
         repeat: -1,
       });
 
-      // Animate mask-size from 50% to 100%
       tl.fromTo(
         ".mask-container",
         { WebkitMaskSize: "50% 50%", maskSize: "50% 50%" },
@@ -50,11 +46,11 @@ export default function BuiltDifferent() {
   }, []);
 
   return (
-    <div className="h-fit min-h-screen relative built-different w-full  flex flex-col items-center justify-end  ">
-      <p className="font-tobias absolute bottom-[8%]  w-[35%] tracking-tight leading-[1.1] text-[3vw] text-center">
-        Built different so you can build different.
+    <div className="h-fit min-h-screen  relative built-different w-full  flex flex-col items-center justify-end  ">
+      <p className="font-tobias absolute bottom-[8%]  w-[90%] tracking-tight leading-[1.1] text-[12vw] text-center">
+        Startups, Investors, anyone.
       </p>
-      <div className="w-[15%] h-[55%] translate-x-[-50%] translate-y-[-50%] absolute rounded-full border border-white/20 top-1/2 left-1/2"></div>
+      <div className="w-[60%] h-[45%] translate-x-[-50%] translate-y-[-50%] absolute rounded-full border border-white/20 top-1/2 left-1/2"></div>
       <div
         className="w-full min-h-screen translate-y-[-50%] translate-x-[-50%]  absolute inset-1/2 py-0 h-fit mask-container"
         style={{

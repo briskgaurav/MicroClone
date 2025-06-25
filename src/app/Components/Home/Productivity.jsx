@@ -3,14 +3,16 @@ import { gsap, splitColor } from "gsap";
 import { animateFloatingBlobs } from "@/app/Animation/FloatBlobAnimation";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { SplitText } from "gsap/dist/SplitText";
+import UseMobile from "../Hooks/UseMobile";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Productivity() {
+  const isMobile = UseMobile();
   const refProductivity = useRef(null);
   const orbs = [
-    { size: "8vw", position: "top-[15%] left-[40%]" },
-    { size: "10vw", position: "top-[50%] left-[10%]" },
-    { size: "15vw", position: "top-[20%] left-[80%]" },
+    { size: isMobile ? '35vw' : '8vw', position: "top-[15%] left-[40%]" },
+    { size: isMobile ? '40vw' : '10vw', position: "top-[50%] left-[10%]" },
+    { size: isMobile ? '15vw' : '15vw', position: "top-[20%] left-[80%]" },
   ];
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export default function Productivity() {
   return (
     <div ref={refProductivity} className="h-screen relative  w-full ">
       <div className="w-full flex flex-col items-center justify-center h-full">
-        <p className="text-[5.5vw] text-split text-center leading-[1.15] text-[#DFC9A7] font-medium tracking-tighter w-[45%] font-haffer">
+        <p className="text-[5.5vw] max-sm:text-[15vw] max-sm:w-[78%] text-split text-center leading-[1.15] text-[#DFC9A7] font-medium tracking-tighter w-[45%] font-haffer">
         Designed to let you focus on your work, not productivity.
         </p>
       </div>

@@ -18,8 +18,7 @@ const imageMap = {
 };
 
 export default function Work() {
-
-  const [ToggleSvg,setToggleSvg] = useState(false)
+  const [ToggleSvg, setToggleSvg] = useState(false);
   const data = [
     "AI Powered",
     "All-In-One Tool",
@@ -28,223 +27,222 @@ export default function Work() {
   ];
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".work-container",
-        start: "20% top",
-        end: "+2000 top",
-        // markers: true,
-        scrub: true,
-        pin: true,
-      },
-    });
+    const context = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".work-container",
+          start: "20% top",
+          end: "+2000 top",
+          // markers: true,
+          scrub: true,
+          pin: true,
+        },
+      });
 
-    tl.fromTo(
-      ".perspective-plane",
+      tl.fromTo(
+        ".perspective-plane",
 
-      {
-        rotateX: "45deg",
-        transformOrigin: "bottom",
-        transformStyle: "preserve-3d",
-      },
-      {
-        rotateX: "0deg",
-        transformOrigin: "bottom",
-        transformStyle: "preserve-3d",
-        duration: 1,
-      }
-    );
-    tl.to(
-      ".svg-card",
-      {
-        y: "-250%",
-        duration: 1,
-        ease: "linear",
-      },
-      "<"
-    );
-    tl.to(
-      ".text-work",
-      {
-        y: "-200%",
-        ease: "linear",
-      },
-      "<+.5"
-    );
-    tl.to(
-      ".bg-layer",
-      {
-        y: "-20%",
-
-        ease: "linear",
-      },
-      "<"
-    );
-    tl.to(".bg-layer", {
-      opacity: 0,
-      duration: 1,
-      ease: "linear",
-    });
-    const images = gsap.utils.toArray(".image-work");
-
-    const imageAnimations = [
-      { index: 5, left: "-103%", top: "-101%" },
-      { index: 1, left: "2%", top: "215%" },
-      { index: 4, left: "-211%", top: "4%" },
-      { index: 6, left: "208%", top: "-101%" },
-      { index: 0, left: "-107%", top: "322%" },
-      { index: 2, left: "208%", top: "216%" },
-      { index: 3, left: "-105%", top: "4%" },
-    ];
-
-    imageAnimations.forEach(({ index, left, top }) => {
-      tl.to(
-        images[index],
         {
-          left,
-          top,
+          rotateX: "45deg",
+          transformOrigin: "bottom",
+          transformStyle: "preserve-3d",
+        },
+        {
+          rotateX: "0deg",
+          transformOrigin: "bottom",
+          transformStyle: "preserve-3d",
+          duration: 1,
+        }
+      );
+      tl.to(
+        ".svg-card",
+        {
+          y: "-250%",
+          duration: 1,
+          ease: "linear",
+        },
+        "<"
+      );
+      tl.to(
+        ".text-work",
+        {
+          y: "-200%",
+          ease: "linear",
+        },
+        "<+.5"
+      );
+      tl.to(
+        ".bg-layer",
+        {
+          y: "-20%",
+
+          ease: "linear",
+        },
+        "<"
+      );
+      tl.to(".bg-layer", {
+        opacity: 0,
+        duration: 1,
+        ease: "linear",
+      });
+      const images = gsap.utils.toArray(".image-work");
+
+      const imageAnimations = [
+        { index: 5, left: "-103%", top: "-101%" },
+        { index: 1, left: "2%", top: "215%" },
+        { index: 4, left: "-211%", top: "4%" },
+        { index: 6, left: "208%", top: "-101%" },
+        { index: 0, left: "-107%", top: "322%" },
+        { index: 2, left: "208%", top: "216%" },
+        { index: 3, left: "-105%", top: "4%" },
+      ];
+
+      imageAnimations.forEach(({ index, left, top }) => {
+        tl.to(
+          images[index],
+          {
+            left,
+            top,
+            duration: 1,
+            ease: "power2.inOut",
+          },
+          "<"
+        );
+      });
+      tl.to(
+        ".image-mountain",
+        {
+          y: "-80%",
+          duration: 3,
+          ease: "linear",
+        },
+        "<-1"
+      );
+      tl.fromTo(
+        ".text-wrapper",
+        {
+          opacity: 0,
+          duration: 1,
+          x: "30%",
+          ease: "power2.inOut",
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          x: "0%",
+          ease: "power2.inOut",
+        }
+      );
+      tl.to(
+        ".image-wrapper",
+        {
+          y: "-25%",
+          scale: 2,
+          transformOrigin: "center center",
           duration: 1,
           ease: "power2.inOut",
         },
         "<"
       );
-    });
-    tl.to(
-      ".image-mountain",
-      {
-        y: "-80%",
-        duration: 3,
-        ease: "linear",
-      },
-      "<-1"
-    );
-    tl.fromTo(
-      ".text-wrapper",
-      {
+      tl.to([images[5], images[6], images[1], images[2]], {
+        y: "100%",
         opacity: 0,
         duration: 1,
-        x: "30%",
         ease: "power2.inOut",
-      },
-      {
-        opacity: 1,
-        duration: 1,
-        x: "0%",
-        ease: "power2.inOut",
-      }
-    );
-    tl.to(
-      ".image-wrapper",
-      {
-        y: "-25%",
-        scale: 2,
-        transformOrigin: "center center",
-        duration: 1,
-        ease: "power2.inOut",
-      },
-      "<"
-    );
-    tl.to([images[5], images[6], images[1], images[2]], {
-      y: "100%",
-      opacity: 0,
-      duration: 1,
-      ease: "power2.inOut",
-      onComplete:()=>{
-        setToggleSvg(true)
-      },
-      onReverseComplete:()=>{
-        setToggleSvg(false)
-      }
-    });
-
-    tl.to(".text-wrapper", {
-      opacity: 0,
-      duration: 1,
-      ease: "power2.inOut",
-    });
-
-    tl.fromTo(
-      ".text-wrapper2",
-      {
-        opacity: 0,
-        duration: 1,
-        x: "30%",
-        y: "-190%",
-        ease: "power2.inOut",
-      },
-      {
-        opacity: 1,
-        duration: 1,
-        x: "0%",
-        ease: "power2.inOut",
-       
-       
-      }
-    );
-    tl.to(
-      ".image-wrapper",
-      {
-        y: "-40%",
-        scale: 2.6,
-        transformOrigin: "center center",
-        duration: 1,
-        ease: "power2.inOut",
-      },
-      "<"
-    );
-    tl.to([images[0], images[3]], {
-      y: "100%",
-      opacity: 0,
-      duration: 1,
-      ease: "power2.inOut",
-    });
-    tl.to(
-      ".text-wrapper2",
-      {
-        opacity: 0,
-        y: "-300%",
-        duration: 1,
-        ease: "power2.inOut",
-       
-      },
-      "<"
-    );
-
-    tl.to(
-      ".image-wrapper",
-      {
-        y: "-65%",
-        scale: 3.5,
-        transformOrigin: "center center",
-        duration: 1,
-        ease: "power2.inOut",
-      },
-      "<"
-    );
-    tl.fromTo(
-      ".text-wrapper3",
-      {
-        opacity: 0,
-        duration: 1,
-        x: "30%",
-        y: "-360%",
-        ease: "power2.inOut",
-        
-      },
-      {
-        opacity: 1,
-        duration: 1,
-        x: "0%",
-        ease: "power2.inOut",
-        onComplete:()=>{
-          setToggleSvg(false)
+        onComplete: () => {
+          setToggleSvg(true);
         },
-        onReverseComplete:()=>{
-          setToggleSvg(true)
+        onReverseComplete: () => {
+          setToggleSvg(false);
         },
-      },
-      "<"
-    );
+      });
+
+      tl.to(".text-wrapper", {
+        opacity: 0,
+        duration: 1,
+        ease: "power2.inOut",
+      });
+
+      tl.fromTo(
+        ".text-wrapper2",
+        {
+          opacity: 0,
+          duration: 1,
+          x: "30%",
+          y: "-190%",
+          ease: "power2.inOut",
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          x: "0%",
+          ease: "power2.inOut",
+        }
+      );
+      tl.to(
+        ".image-wrapper",
+        {
+          y: "-40%",
+          scale: 2.6,
+          transformOrigin: "center center",
+          duration: 1,
+          ease: "power2.inOut",
+        },
+        "<"
+      );
+      tl.to([images[0], images[3]], {
+        y: "100%",
+        opacity: 0,
+        duration: 1,
+        ease: "power2.inOut",
+      });
+      tl.to(
+        ".text-wrapper2",
+        {
+          opacity: 0,
+          y: "-300%",
+          duration: 1,
+          ease: "power2.inOut",
+        },
+        "<"
+      );
+
+      tl.to(
+        ".image-wrapper",
+        {
+          y: "-65%",
+          scale: 3.5,
+          transformOrigin: "center center",
+          duration: 1,
+          ease: "power2.inOut",
+        },
+        "<"
+      );
+      tl.fromTo(
+        ".text-wrapper3",
+        {
+          opacity: 0,
+          duration: 1,
+          x: "30%",
+          y: "-360%",
+          ease: "power2.inOut",
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          x: "0%",
+          ease: "power2.inOut",
+          onComplete: () => {
+            setToggleSvg(false);
+          },
+          onReverseComplete: () => {
+            setToggleSvg(true);
+          },
+        },
+        "<"
+      );
+    });
+    return () => context.kill();
   }, []);
 
   return (
@@ -279,7 +277,6 @@ export default function Work() {
         </div>
         <div className="perspective-[500px] h-[100vh] w-full flex items-center justify-center absolute top-[-50%] left-0">
           <div className="w-[52%] perspective-plane h-full rounded-xl relative ">
-
             {/* 🔵 Background Grid Layer (with border and background) */}
             <div className="absolute inset-0 z-0 rounded-xl bg-[#0F1013] bg-layer pointer-events-none grid grid-cols-5 grid-rows-5 p-2 gap-2">
               {[...Array(25)].map((_, index) => (
@@ -309,12 +306,9 @@ export default function Work() {
                   )}
                 </div>
               ))}
-            
             </div>
           </div>
         </div>
-
-    
 
         {/* CircularSvg */}
         <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-[80%]">
@@ -488,7 +482,6 @@ export default function Work() {
             your description.
           </p>
         </div>
-
       </div>
       <SvgBackground toggle={ToggleSvg} />
     </div>

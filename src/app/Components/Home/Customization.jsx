@@ -7,74 +7,52 @@ import { SplitText } from "gsap/dist/SplitText";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 export default function Customization() {
   useEffect(() => {
-    const textSplit = new SplitText(".split-text", {
-      type: "words,chars",
-      mask: "lines",
-      linesClass: "split-text-line",
-    });
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".customization",
-        start: "top 50%",
-        end: "50% top",
-        // markers: true,
-        scrub: true,
-      },
-    });
-
-    tl.fromTo(
-      ".customization-text",
-      {
-        x: "30%",
-        opacity: 0,
-      },
-      {
-        x: "0%",
-        opacity: 1,
-        duration: 1,
-        ease: "power1.inOut",
-      }
-    );
-
-    gsap.set(".perspective-rotation", {
-      rotateX: "-90deg",
-      scale: 0.5,
-      opacity: 0,
-      transformOrigin: "top",
-      transformStyle: "preserve-3d",
-    });
-    gsap.to(".perspective-rotation", {
-      rotateX: "0deg",
-      scale: 1,
-      opacity: 1,
-      transformOrigin: "top",
-      transformStyle: "preserve-3d",
-      duration: 1.5,
-      ease: "power1.inOut",
-      delay:1,
-      scrollTrigger: {
-        trigger: ".perspective-rotation",
-        start: "top 50%",
-        once: false,
-        end: "50% top",
-        // markers: true,
-      },
-    });
-    gsap.fromTo(
-      textSplit.chars,
-      {
-        opacity: 0,
-        x: "100%",
-        stagger: 0.02,
-      },
-      {
-        opacity: 1,
-        x: "0%",
-        duration: 0.5,
-        stagger: {
-          amount: 0.5,
-          from: "start",
+    const context = gsap.context(() => {
+      const textSplit = new SplitText(".split-text", {
+        type: "words,chars",
+        mask: "lines",
+        linesClass: "split-text-line",
+      });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".customization",
+          start: "top 50%",
+          end: "50% top",
+          // markers: true,
+          scrub: true,
         },
+      });
+
+      tl.fromTo(
+        ".customization-text",
+        {
+          x: "30%",
+          opacity: 0,
+        },
+        {
+          x: "0%",
+          opacity: 1,
+          duration: 1,
+          ease: "power1.inOut",
+        }
+      );
+
+      gsap.set(".perspective-rotation", {
+        rotateX: "-90deg",
+        scale: 0.5,
+        opacity: 0,
+        transformOrigin: "top",
+        transformStyle: "preserve-3d",
+      });
+      gsap.to(".perspective-rotation", {
+        rotateX: "0deg",
+        scale: 1,
+        opacity: 1,
+        transformOrigin: "top",
+        transformStyle: "preserve-3d",
+        duration: 1.5,
+        ease: "power1.inOut",
+        delay: 1,
         scrollTrigger: {
           trigger: ".perspective-rotation",
           start: "top 50%",
@@ -82,15 +60,40 @@ export default function Customization() {
           end: "50% top",
           // markers: true,
         },
-        ease: "back.out",
-        onComplete: () => {
-          gsap.set(".line-capsule", {
-            opacity:0,
-            visibility: "hidden",
-          });
+      });
+      gsap.fromTo(
+        textSplit.chars,
+        {
+          opacity: 0,
+          x: "100%",
+          stagger: 0.02,
         },
-      }
-    );
+        {
+          opacity: 1,
+          x: "0%",
+          duration: 0.5,
+          stagger: {
+            amount: 0.5,
+            from: "start",
+          },
+          scrollTrigger: {
+            trigger: ".perspective-rotation",
+            start: "top 50%",
+            once: false,
+            end: "50% top",
+            // markers: true,
+          },
+          ease: "back.out",
+          onComplete: () => {
+            gsap.set(".line-capsule", {
+              opacity: 0,
+              visibility: "hidden",
+            });
+          },
+        }
+      );
+    });
+    return () => context.revert();
   }, []);
 
   return (

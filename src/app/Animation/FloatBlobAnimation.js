@@ -8,22 +8,28 @@ export const animateFloatingBlobs = (elements, options = {}) => {
     ease = "sine.inOut"
   } = options;
 
-  elements.forEach((_, index) => {
-    // Generate random initial positions within ranges
-    const startY = gsap.utils.random(yRange[0], yRange[1]);
-    const startX = gsap.utils.random(xRange[0], xRange[1]);
-    const duration = gsap.utils.random(durationRange[0], durationRange[1]);
+  // Create a single timeline for better performance
+  const tl = gsap.timeline();
 
-    // Create seamless loop by animating to same position
-    gsap.to(`.${elements[index]}`, {
-      y: startY,
-      x: startX,
-      duration: duration,
+  // Animate each blob in a random direction
+  elements.forEach((element) => {
+    const angle = gsap.utils.random(0, Math.PI * 2); // Random angle in radians
+    const distance = gsap.utils.random(30, 80); // Random distance to travel
+    
+    // Calculate x and y offsets based on angle
+    const xOffset = Math.cos(angle) * distance;
+    const yOffset = Math.sin(angle) * distance;
+    
+    tl.to(`.${element}`, {
+      x: xOffset,
+      y: yOffset,
+      duration: gsap.utils.random(durationRange[0], durationRange[1]),
       ease: ease,
       repeat: -1,
       yoyo: true,
-      // Ensure smooth transition between loops
-      repeatRefresh: false
-    });
+      repeatRefresh: true // Refresh values on each repeat for more randomness
+    }, 0);
   });
+
+  return tl;
 };

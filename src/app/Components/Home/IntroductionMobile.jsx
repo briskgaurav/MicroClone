@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import gsap from "gsap";
 
-export default function Introduction() {
+import Image from "next/image";
+
+export default function IntroductionMobile() {
   const navItems = [
     {
       icon: (
@@ -167,59 +167,28 @@ export default function Introduction() {
     },
   ];
 
-  const [active, setActive] = useState(navItems[0]);
-
-  useEffect(() => {
-    const context = gsap.context(() => {
-      gsap.to(".absolute-btn", {
-        x: active.position,
-        duration: 0.5,
-        ease: "power2.inOut",
-      });
-    });
-
-    return () => context.revert();
-  }, [active]);
-
   return (
-    <div className="h-fit w-full flex py-[2vw] flex-col items-center justify-center">
-      <div className="w-full h-full flex flex-col items-center justify-center">
-        <h2 className="text-[5.3vw] font-haffer leading-[1.3] tracking-tight">
+    <div className="h-fit w-full flex  py-[2vw] flex-col items-center justify-center">
+      <div className="w-full h-full flex flex-col items-center  gap-[8vw] justify-center">
+        <h2 className="text-[15vw] text-center leading-[1.1] font-haffer  tracking-tight">
           Introducing Micro
         </h2>
-        <p className="font-tobias text-[1.8vw]">
+        <p className="font-tobias text-[7vw] text-center leading-[1]">
           The all-in-one tool that organizes itself
         </p>
-        <div className="w-fit mt-[4vw] rounded-full bg-zinc-500/10 backdrop-blur-md h-[6vh] px-[.2vw] flex items-center relative justify-center">
-          <div className="w-[8vw] h-[90%] -translate-y-1/2  absolute absolute-btn top-1/2 left-[calc(.2vw+0vw)] rounded-full z-[-1] bg-black "></div>
-          {navItems.map((item, index) => (
-            <div
-              onClick={() => setActive(item)}
-              className="w-[8vw] flex z-[5] items-center gap-[.5vw] justify-center h-full"
-              key={index}
-            >
-              <div
-                className={`w-[1vw] h-auto  ${
-                  active.text === item.text ? "text-white" : "text-zinc-500"
-                }`}
-              >
+      </div>
+      <div className=" w-full h-full flex-col items-center  justify-center p-[5vw]">
+        {navItems.map((item, index) => (
+          <div key={index} className="w-full h-full mb-[8vw] bg-[#1A1C21] border-[1px] border-white/50 rounded-[2vw] p-[2vw]">
+            <div className="w-full h-full py-[5vw] px-[2vw] flex items-center justify-between">
+              <p className="text-[4vw] font-tobias">{item.text}</p>
+              <div className="w-[4vw] h-auto">
                 {item.icon}
               </div>
-              <p
-                className={`text-[.8vw] cursor-pointer  text-center ${
-                  active.text === item.text ? "text-white" : "text-zinc-500"
-                }`}
-              >
-                {item.text}
-              </p>
             </div>
-          ))}
-        </div>
-        <div className="w-full mt-[2vw] h-full flex flex-col items-center justify-center">
-          <div className="w-[75%] p-[.5vw] h-auto rounded-xl bg-white/50 backdrop-blur-xl">
-            <div className="bg-white w-full h-full aspect-video rounded-xl overflow-hidden">
+            <div className="h-full rounded-[2vw] w-full">
               <video
-                src={active.video}
+                src={item.video}
                 autoPlay
                 loop
                 muted
@@ -228,7 +197,7 @@ export default function Introduction() {
               />
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );

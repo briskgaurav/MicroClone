@@ -8,9 +8,16 @@ import Customization from "../Home/Customization";
 import BuiltDifferent from "../Home/BuiltDifferent";
 import LoaderMicro from "@/app/Loader/LoaderMicro";
 import Navbar from "../Header/Navbar";
+import UseMobile from "../Hooks/UseMobile";
+import HeroMobile from "../Home/HeroMobile";
+import IntroductionMobile from "../Home/IntroductionMobile";
+import BuiltDifferentMobile from "../Home/BuiltDifferentMobile";
+import CustomizationMobile from "../Home/CustomizationMobile";
+import WorkMobile from "../Home/WorkMobile";
 
 export default function Background() {
   const rainRefs = useRef([]);
+  const isMobile = UseMobile();
 
   useEffect(() => {
     rainRefs.current.forEach((drop) => {
@@ -64,14 +71,14 @@ export default function Background() {
           ))}
         </div>
       </div>
-      <LoaderMicro  />
+      <LoaderMicro />
       <Navbar />
-      <Hero />
+      {isMobile ? <HeroMobile /> : <Hero />}
       <WorkingHard />
-      <Introduction />
-      <Work />
-      <Customization />
-      <BuiltDifferent />
+      {isMobile ? <IntroductionMobile /> : <Introduction />}
+      {isMobile ? <WorkMobile /> : <Work />}
+      {isMobile ? <CustomizationMobile /> : <Customization />}
+      {isMobile ? <BuiltDifferentMobile /> : <BuiltDifferent />}
     </div>
   );
 }

@@ -11,6 +11,9 @@
   --font-tobias: var(--font-tobias);
   --font-pp: var(--font-pp);
   --font-haffer: var(--font-haffer);
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 1024px;
+
 }
 
 @media (prefers-color-scheme: dark) {

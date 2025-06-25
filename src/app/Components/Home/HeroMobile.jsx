@@ -9,16 +9,16 @@ import Button from "../Buttons/Button";
 gsap.registerPlugin(ScrollTrigger);
 
 
-export default function Hero() {
+export default function HeroMobile() {
   const orbs = [
-    { size: "5vw", position: "top-[20%] left-[60%]" },
-    { size: "10vw", position: "top-[35%] left-[55%]" },
+    { size: "35vw", position: "top-[20%] left-[60%]" },
+    { size: "25vw", position: "top-[35%] left-[55%]" },
     { size: "15vw", position: "top-[80%] left-[35%]" },
   ];
   const orbs2 = [
-    { size: "5vw", position: "top-[6%] left-[50%]" },
-    { size: "10vw", position: "top-[25%] left-[10%]" },
-    { size: "12vw", position: "top-[50%] left-[70%]" },
+    { size: "35vw", position: "top-[6%] left-[50%]" },
+    { size: "25vw", position: "top-[25%] left-[10%]" },
+    { size: "40vw", position: "top-[50%] left-[70%]" },
   ];
   const refHero = useRef(null);
   const TOTAL_DOTS = 5000;
@@ -62,74 +62,80 @@ export default function Hero() {
   };
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: refHero.current,
-        start: "top top",
-        end: "+1000 top",
-        scrub: true,
-        pin: true,
-      },
-    });
+    const context = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: refHero.current,
+          start: "top top", 
+          end: "+1000 top",
+          scrub: true,
+          pin: true,
+        },
+      });
 
-    rainRefs.current.forEach((drop) => {
-      if (drop) {
-        gsap.to(drop, {
-          y: "1200vh",
-          duration: gsap.utils.random(20, 30),
-          ease: "linear",
-          repeat: -1,
-          delay: gsap.utils.random(0, 15),
-        });
-      }
-    });
+      rainRefs.current.forEach((drop) => {
+        if (drop) {
+          gsap.to(drop, {
+            y: "1200vh",
+            duration: gsap.utils.random(20, 30),
+            ease: "linear", 
+            repeat: -1,
+            delay: gsap.utils.random(0, 15),
+          });
+        }
+      });
 
-    tl.to(".layer1", {
-      opacity: 0,
-      duration: 0.5,
-    });
-    tl.to("#secondImageMask", {
-      maskSize: "50% 50%",
-      duration: 0.5,
-    });
-    tl.to(
-      ["#firstImage", "#thirdImage"],
-      {
-        y: "-120%",
+      tl.to(".layer1", {
+        opacity: 0,
         duration: 0.5,
-      },
-      "<"
-    );
-    tl.to(".blackDiv", {
-      scale: 3.5,
-    });
-    tl.to(
-      "#secondImageMask",
-      {
-        maskSize: "400% 400%",
-      },
-      "<"
-    );
+      });
+      tl.to("#secondImageMask", {
+        maskSize: "20% 20%",
+        duration: 0.5,
+      });
+      tl.to(
+        ["#firstImage", "#thirdImage"],
+        {
+          y: "-120%",
+          duration: 0.5,
+        },
+        "<"
+      );
+      tl.to(".blackDiv", {
+        scale: 3.5,
+      });
+      tl.to(
+        "#secondImageMask",
+        {
+          maskSize: "400% 400%",
+        },
+        "<"
+      );
 
-    tl.set(".blackDiv", {
-      opacity: 0,
+      tl.set(".blackDiv", {
+        opacity: 0,
+      });
     });
 
     window.addEventListener("mousemove", handleImageMove);
-    return () => window.removeEventListener("mousemove", handleImageMove);
+
+    return () => {
+      context.revert();
+      window.removeEventListener("mousemove", handleImageMove); 
+    };
   }, []);
 
   return (
     <div ref={refHero} className="min-h-screen  relative h-fit w-full">
       {/* Masked Images */}
-      <div className="h-full flex px-[5vw] py-[4vw] hero-div translate-y-[100%] !z-[999] absolute bottom-0  left-0 w-full">
-        <div className="flex w-full h-full flex-col items-start justify-end gap-[2vw]">
-          <p className="text-[.9vw] w-[40%]  leading-none tracking-tighter">
+      <div className="h-full flex flex-col-reverse px-[5vw] py-[4vw] max-sm:px-[10vw] max-sm:py-[15vw]   hero-div translate-y-[100%] !z-[500] absolute bottom-0  left-0 w-full">
+        <div className="flex w-full h-full flex-col items-start justify-end gap-[8vw]">
+          <p className="text-[4vw] w-full  leading-none tracking-tighter">
             Micro is an all-in-one tool for email, CRM, project management and
             more that automatically organizes itself.
           </p>
-          <div className="flex items-center group bg-[#F9F5EE] rounded-full justify-center cursor-pointer py-[1vw] px-[2vw] z-[999] gap-[.3vw] w-fit">
-            <p className="text-black text-[.9vw]">Join the waitlist</p>
+          <div className="flex items-center group bg-[#F9F5EE] rounded-full justify-center cursor-pointer py-[5vw] px-[2vw] z-[999] gap-[.3vw] w-full">
+            <p className="text-black text-[3vw]">Join the waitlist</p>
             <div className="w-[.6vw] mb-[.5vw] group-hover:opacity-100 transition-all duration-300 opacity-0 h-[.8vw]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -147,11 +153,11 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <div className="flex w-full h-full flex-col items-end justify-end">
-          <h1 className="text-[8.5vw]  leading-none tracking-tighter">
+        <div className="flex w-full h-full flex-col items-center pt-[10vw] justify-start">
+          <h1 className="text-[18vw]  leading-none tracking-tighter">
             Organized.
           </h1>
-          <p className="text-[2vw] font-tobias  leading-none tracking-tighter">
+          <p className="text-[8vw] font-tobias  leading-none tracking-tighter">
             So you don't have to be.
           </p>
         </div>
@@ -361,26 +367,26 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      <div className="h-full blackDiv relative w-full flex items-end justify-end p-[2vw]">
-        <div className=" w-[calc(100%-0vw)]  hero-div translate-y-[100%] opacity-0 h-[calc(100%-3vw)] relative bg-black overflow-hidden rounded-[2vw] flex items-center justify-center">
+      <div className="h-full blackDiv relative w-full flex items-end pb-[8vw] justify-center p-[4vw]">
+        <div className=" w-[calc(100%-0vw)]  hero-div translate-y-[100%] opacity-0 h-[calc(100%-8%)] relative bg-black overflow-hidden rounded-[5vw] flex items-center justify-center">
           {/* first Image Layer */}
-          <div className="w-full layer1 opacity-100 rounded-[2vw] overflow-hidden h-full relative">
-            <div className=" scale-120 translate-y-[-11%] h-full w-full absolute inset-0">
+          <div className="w-full layer1 opacity-100 rounded-[5vw] overflow-hidden h-full relative">
+            <div className=" scale-100 translate-y-[-11%] h-full w-full absolute inset-0">
               <Image
                 ref={(el) => (imageRefs.current[0] = el)}
                 src="/images/homeTop.webp"
                 alt="hero"
                 fill
-                className="w-full  h-full object-cover"
+                className="w-full  h-full object-cover object-right"
               />
             </div>
-            <div className="w-full  h-full absolute bottom-[0%] translate-y-[15%] scale-110  left-0">
+            <div className="w-full  h-full absolute bottom-[0%] translate-y-[15%]  left-0">
               <Image
                 ref={(el) => (imageRefsBottom.current[0] = el)}
                 src="/images/homeBottom.webp"
                 alt="hero"
                 fill
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-right"
               />
             </div>
           </div>
@@ -388,73 +394,25 @@ export default function Hero() {
           {/* second Image Layer */}
           <div className="w-full z-[2] absolute flex gap-2 p-2 top-0 left-0 h-full ">
             <div
-              id="firstImage"
-              className="w-full h-full  relative overflow-hidden  border-[1px] border-white/50 flex items-center  bg-red-500/50 justify-center rounded-[1.5vw] "
-            >
-              <div className="scale-120 translate-y-[-11%] h-full w-full absolute inset-0">
-                <Image
-                  ref={(el) => (imageRefs.current[1] = el)}
-                  src="/images/homeTop.webp"
-                  alt="hero"
-                  fill
-                  className="w-full h-full object-cover object-left"
-                />
-              </div>
-              <div className="w-[calc(100vw-3vw)] h-full translate-x-[-1.5%] translate-y-[15%] scale-110  absolute bottom-0  left-0">
-                <Image
-                  ref={(el) => (imageRefsBottom.current[1] = el)}
-                  src="/images/homeBottom.webp"
-                  alt="hero"
-                  fill
-                  className="w-full  object-cover object-left  h-full  "
-                />
-              </div>
-            </div>
-
-            <div
               id="secondImage"
-              className="w-full h-full relative border-[1px] overflow-hidden border-white/50 flex items-center justify-center rounded-[1.5vw] "
+              className="w-full h-full relative border-[1px] overflow-hidden border-white/50 flex items-center justify-center rounded-[5vw] "
             >
-              <div className="scale-120 translate-y-[-11%] h-full w-full absolute inset-0">
+              <div className=" translate-y-[-11%] h-full w-full absolute inset-0">
                 <Image
                   ref={(el) => (imageRefs.current[2] = el)}
-                  src="/images/homeTop.webp"
-                  alt="hero"
-                  fill
-                  className="w-full h-full object-cover "
-                />
-              </div>
-              <div className="w-[calc(100vw-3vw)] h-full translate-x-[-34%] translate-y-[15.5%] scale-110  absolute bottom-0  left-0">
-                <Image
-                  ref={(el) => (imageRefsBottom.current[2] = el)}
-                  src="/images/homeBottom.webp"
-                  alt="hero"
-                  fill
-                  className="w-full  object-cover h-full object-center "
-                />
-              </div>
-            </div>
-
-            <div
-              id="thirdImage"
-              className="w-full h-full relative overflow-hidden border-[1px] border-white/50 flex items-center  justify-center rounded-[1.5vw]"
-            >
-              <div className="scale-120 translate-y-[-11%] h-full w-full absolute inset-0">
-                <Image
-                  ref={(el) => (imageRefs.current[3] = el)}
                   src="/images/homeTop.webp"
                   alt="hero"
                   fill
                   className="w-full h-full object-cover object-right"
                 />
               </div>
-              <div className="w-[calc(100vw-3vw)] h-full translate-x-[-66%] translate-y-[15.5%] scale-110  absolute bottom-0  left-0">
+              <div className="w-[calc(100vw-3vw)] scale-120 h-full absolute bottom-0  left-0">
                 <Image
-                  ref={(el) => (imageRefsBottom.current[3] = el)}
+                  ref={(el) => (imageRefsBottom.current[2] = el)}
                   src="/images/homeBottom.webp"
                   alt="hero"
                   fill
-                  className="w-full scale-100 object-cover object-right h-full  "
+                  className="w-full  object-cover h-full object-right "
                 />
               </div>
             </div>
@@ -622,7 +580,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-     
     </div>
   );
 }

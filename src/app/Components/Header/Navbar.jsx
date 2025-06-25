@@ -10,31 +10,36 @@ export default function Navbar() {
   const [previousScroll, setPreviousScroll] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      if (currentScroll > previousScroll && currentScroll > 100) {
-        gsap.to(navRef.current, {
-          y: '-100%',
-          duration: 0.5,
-          ease: 'linear',
-        });
-      } else {
-        gsap.to(navRef.current, {
-          y: '0%',
-          duration: 0.5,
-          ease: 'linear',
-        });
-      }
-      setPreviousScroll(currentScroll);
-    };
+    const context = gsap.context(() => {
+        
+      const handleScroll = () => {
+        const currentScroll = window.scrollY;
+        if (currentScroll > previousScroll && currentScroll > 100) {
+          gsap.to(navRef.current, {
+            y: '-100%',
+            duration: 0.5,
+            ease: 'linear',
+          });
+        } else {
+          gsap.to(navRef.current, {
+            y: '0%',
+            duration: 0.5,
+            ease: 'linear',
+          });
+        }
+        setPreviousScroll(currentScroll);
+      };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    });
+
+    return () => context.revert();
   }, [previousScroll]);
 
   return (
-    <nav ref={navRef} className="py-[1.5vw] fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[2vw]">
-      <div className="w-[5.6vw] cursor-pointer   h-auto">
+    <nav ref={navRef} className="py-[1.5vw] fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[2vw] max-sm:px-[5vw] max-sm:py-[6vw]">
+      <div className="w-[5.6vw] cursor-pointer   h-auto max-sm:w-[18vw] ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -67,8 +72,8 @@ export default function Navbar() {
           ></path>
         </svg>
       </div>
-      <div className="flex items-center gap-[1.5vw]">
-        <Link href="/login" className="text-[.9vw]">Login</Link>
+      <div className="flex items-center gap-[1.5vw] max-sm:gap-[5vw]">
+        <Link href="/login" className="text-[.9vw] max-sm:text-[4vw]">Login</Link>
         <Button />
       </div>
     </nav>

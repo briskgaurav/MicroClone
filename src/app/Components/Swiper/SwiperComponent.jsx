@@ -31,9 +31,9 @@ export default function SwiperComponent() {
   const swiperRef = useRef(null);
 
   return (
-    <div className="h-[80vh] w-full px-[10vw] p-[2vw] flex items-center justify-center border-[#EBDFCA]">
-      <div className="w-[90%] rounded-full relative border-2 border-[#EBDFCA] h-[80%]">
-        <div className="absolute capsule bottom-0 left-0 w-full h-[92%] overflow-hidden bg-[#0E1013] rounded-full">
+    <div className="h-[80vh] max-sm:h-[90vh] w-full px-[10vw] max-sm:px-[5vw] p-[2vw] flex items-center justify-center border-[#EBDFCA]">
+      <div className="w-[90%] max-sm:w-[100%] rounded-full relative border-2 border-[#EBDFCA] h-[90%] max-sm:h-[80%]">
+        <div className="absolute capsule bottom-0 left-0 w-full h-[92%] max-sm:h-[95%] overflow-hidden bg-[#0E1013] rounded-full">
           <Swiper
             direction={"vertical"}
             navigation={false}
@@ -51,17 +51,17 @@ export default function SwiperComponent() {
           >
             {data.map((testimonial, i) => (
               <SwiperSlide key={i}>
-                <div className="flex slide-content z-[10] flex-col items-center justify-center h-full gap-4 px-[20%]">
+                <div className="flex slide-content z-[10] max-sm:px-[5%] flex-col items-center justify-center h-full gap-4 max-sm:gap-[4vw] px-[20%]">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.company.toLowerCase()}
                     width={150}
                     height={50}
                   />
-                  <p className="font-tobias text-[1.7vw] tracking-tighter leading-[1.2] text-white text-center">
+                  <p className="font-tobias text-[1.7vw] max-sm:text-[8vw] tracking-tighter leading-[1.2] text-white text-center">
                     {testimonial.text}
                   </p>
-                  <p className="text-[1vw] text-white text-center">
+                  <p className="text-[1vw] max-sm:text-[4vw] text-white text-center">
                     {testimonial.author} - {testimonial.role} -{" "}
                     {testimonial.company}
                   </p>
@@ -84,10 +84,10 @@ export default function SwiperComponent() {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-[15%] z-[20] right-[10%] w-fith-[10%] flex items-center ">
+          <div className="absolute bottom-[15%] max-sm:bottom-[5%] max-sm:translate-x-[50%] z-[20] right-[10%] max-sm:right-[50%] w-fith-[10%] flex items-center ">
             <div
               onClick={() => swiperRef.current?.slideNext()}
-              className="w-[1.2vw] h-[1.2vw] cursor-pointer flex items-center justify-center"
+              className="w-[1.2vw] max-sm:w-[5vw] h-[1.2vw] max-sm:h-[5vw] cursor-pointer flex items-center justify-center"
             >
               <Image
                 className=" w-full h-full object-contain"
@@ -101,7 +101,7 @@ export default function SwiperComponent() {
             </div>
             <div
               onClick={() => swiperRef.current?.slidePrev()}
-              className="w-[1.2vw] h-[1.2vw] cursor-pointer flex items-center justify-center"
+              className="w-[1.2vw] max-sm:w-[5vw] h-[1.2vw] max-sm:h-[5vw]  cursor-pointer flex items-center justify-center"
             >
               <Image
                 className="rotate-180 w-full h-full object-contain"
